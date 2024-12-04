@@ -1,28 +1,20 @@
 import { test, expect, chromium } from "@playwright/test";
 
 // Test Case 1: Validate Homepage URL
-test("Validate Homepage URL", async () => {
-  const browser = await chromium.launch({
-    headless: false,
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Homepage URL", async ({page}) => {
+  
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
 
   await page.goto(process.env.HOMEPAGE_URL);
-  await browser.close();
+
 });
 
 // Test Case 2: Validate Categories on Homepage
-test("Validate Categories on Homepage", async () => {
-  const browser = await chromium.launch({
-    headless: false,
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Categories on Homepage", async ({page}) => {
+ 
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
@@ -38,16 +30,12 @@ test("Validate Categories on Homepage", async () => {
     expect(categoryText?.trim()).toBe(category);
   }
 
-  await browser.close();
+
 });
 
 // Test Case 3: Validate Phones List on Homepage
-test("Validate Phones List on Homepage", async () => {
-  const browser = await chromium.launch({
-    headless: false,
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Phones List on Homepage", async ({page}) => {
+ 
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
@@ -71,48 +59,36 @@ test("Validate Phones List on Homepage", async () => {
     expect(phoneText?.trim()).toBe(phone);
   }
 
-  await browser.close();
+
 });
 
 // Test Case 3: Validate Login Page URL
-test("Validate Login Page URL", async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Login Page URL", async ({page}) => {
+  
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
 
   await page.goto(process.env.HOMEPAGE_URL);
-  await browser.close();
+
 });
 
 // Test Case 4: Validate Login Button is Visible
-test("Validate Login Button Visibility", async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Login Button Visibility", async ({page}) => {
+  
 
   await page.goto(process.env.HOMEPAGE_URL!);
 
   const loginButton = await page.locator('//*[@id="login2"]');
   await expect(loginButton).toBeVisible();
 
-  await browser.close();
+
 });
 
 // Test Case 5: Validate Login Form Elements (Username, Password Fields)
-test("Validate Login Form Fields", async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Login Form Fields", async ({page}) => {
+  
 
   await page.goto(process.env.HOMEPAGE_URL!);
 
@@ -127,17 +103,12 @@ test("Validate Login Form Fields", async () => {
   await expect(passwordField).toBeVisible();
   await expect(passwordField).toHaveAttribute('type', 'password');
 
-  await browser.close();
+
 });
 
 // Test Case 6: Validating Signup 
-test("Testing Signup Page", async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Testing Signup Page", async ({page}) => {
+  
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
@@ -166,16 +137,12 @@ test("Testing Signup Page", async () => {
   await expect(signUpButton).toBeVisible();
   await signUpButton.click();
 
-  await browser.close();
+
 });
 
 // Test Case 7: Validate Successful Login with Correct Credentials
-test("Validate Successful Login", async () => {
-  const browser = await chromium.launch({
-    headless: false
-  });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validate Successful Login", async ({page}) => {
+ 
 
   await page.goto(process.env.HOMEPAGE_URL!);
 
@@ -194,17 +161,12 @@ test("Validate Successful Login", async () => {
 
   await page.waitForTimeout(2000);  
 
-  await browser.close();
+
 });
 
 // Test Case 8: Validating add product to cart page and handling the popup
-test("Validating Add Product to cart page and handling the popup", async () => {
-  const browser = await chromium.launch({
-    headless: false,
-  });
-
-  const context = await browser.newContext();
-  const page = await context.newPage();
+test("Validating Add Product to cart page and handling the popup", async ({page}) => {
+  
 
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
@@ -223,5 +185,5 @@ test("Validating Add Product to cart page and handling the popup", async () => {
     await alert.accept();
   })
 
-  await browser.close();
+
 });
