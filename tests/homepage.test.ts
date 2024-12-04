@@ -1,21 +1,16 @@
 import { test, expect, chromium } from "@playwright/test";
 
 // Test Case 1: Validate Homepage URL
-test("Validate Homepage URL", async ({page}) => {
-  
-
+test("Validate Homepage URL", async ({ page }) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
 
   await page.goto(process.env.HOMEPAGE_URL);
-
 });
 
 // Test Case 2: Validate Categories on Homepage
-test("Validate Categories on Homepage", async ({page}) => {
- 
-
+test("Validate Categories on Homepage", async ({ page }) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
@@ -26,17 +21,15 @@ test("Validate Categories on Homepage", async ({page}) => {
 
   for (let index = 0; index < categories.length; index++) {
     const category = categories[index];
-    const categoryText = await page.locator(`(//a[@id='itemc'])[${index + 1}]`).textContent();
+    const categoryText = await page
+      .locator(`(//a[@id='itemc'])[${index + 1}]`)
+      .textContent();
     expect(categoryText?.trim()).toBe(category);
   }
-
-
 });
 
 // Test Case 3: Validate Phones List on Homepage
-test("Validate Phones List on Homepage", async ({page}) => {
- 
-
+test("Validate Phones List on Homepage", async ({ page }) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
@@ -50,66 +43,55 @@ test("Validate Phones List on Homepage", async ({page}) => {
     "Samsung galaxy s7",
     "Iphone 6 32gb",
     "Sony xperia z5",
-    "HTC One M9"
+    "HTC One M9",
   ];
 
   for (let index = 0; index < expectedPhones.length; index++) {
     const phone = expectedPhones[index];
-    const phoneText = await page.locator(`(//a[@class='hrefch'])[${index + 1}]`).textContent();
+    const phoneText = await page
+      .locator(`(//a[@class='hrefch'])[${index + 1}]`)
+      .textContent();
     expect(phoneText?.trim()).toBe(phone);
   }
-
-
 });
 
 // Test Case 3: Validate Login Page URL
-test("Validate Login Page URL", async ({page}) => {
-  
-
+test("Validate Login Page URL", async ({ page }) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
 
   await page.goto(process.env.HOMEPAGE_URL);
-
 });
 
 // Test Case 4: Validate Login Button is Visible
-test("Validate Login Button Visibility", async ({page}) => {
-  
-
+test("Validate Login Button Visibility", async ({ page }) => {
   await page.goto(process.env.HOMEPAGE_URL!);
 
   const loginButton = await page.locator('//*[@id="login2"]');
   await expect(loginButton).toBeVisible();
-
-
 });
 
 // Test Case 5: Validate Login Form Elements (Username, Password Fields)
-test("Validate Login Form Fields", async ({page}) => {
-  
-
+test("Validate Login Form Fields", async ({ page }) => {
   await page.goto(process.env.HOMEPAGE_URL!);
 
   const loginButton = await page.locator('//*[@id="login2"]');
   await loginButton.click();
 
-  const usernameField = await page.locator("(//label[text()='Username:']/following-sibling::input)[2]");
+  const usernameField = await page.locator(
+    "(//label[text()='Username:']/following-sibling::input)[2]"
+  );
   await expect(usernameField).toBeVisible();
-  await expect(usernameField).toHaveAttribute('type', 'text');
+  await expect(usernameField).toHaveAttribute("type", "text");
 
   const passwordField = await page.locator("(//input[@type='password'])[2]");
   await expect(passwordField).toBeVisible();
-  await expect(passwordField).toHaveAttribute('type', 'password');
-
-
+  await expect(passwordField).toHaveAttribute("type", "password");
 });
 
-// Test Case 6: Validating Signup 
-test("Testing Signup Page", async ({page}) => {
-  
-
+// Test Case 6: Validating Signup
+test("Testing Signup Page", async ({ page }) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
@@ -125,65 +107,59 @@ test("Testing Signup Page", async ({page}) => {
 
   const usernameField = page.locator("(//input[@class='form-control'])[3]");
   await expect(usernameField).toBeVisible();
-  await expect(usernameField).toHaveAttribute('type', 'text');
+  await expect(usernameField).toHaveAttribute("type", "text");
   await usernameField.fill("Vanraj8169");
 
   const passwordField = page.locator("(//input[@type='password'])[1]");
   await expect(passwordField).toBeVisible();
-  await expect(passwordField).toHaveAttribute('type', 'password');
+  await expect(passwordField).toHaveAttribute("type", "password");
   await passwordField.fill("Vanraj8169");
 
   const signUpButton = page.locator("(//button[@class='btn btn-primary'])[2]");
   await expect(signUpButton).toBeVisible();
   await signUpButton.click();
-
-
 });
 
 // Test Case 7: Validate Successful Login with Correct Credentials
-test("Validate Successful Login", async ({page}) => {
- 
-
+test("Validate Successful Login", async ({ page }) => {
   await page.goto(process.env.HOMEPAGE_URL!);
 
   const loginButton = await page.locator('//*[@id="login2"]');
   await loginButton.click();
 
-  const usernameField = await page.locator("(//label[text()='Username:']/following-sibling::input)[2]");
+  const usernameField = await page.locator(
+    "(//label[text()='Username:']/following-sibling::input)[2]"
+  );
   await usernameField.fill("Vanraj8169");
 
   const passwordField = await page.locator("(//input[@type='password'])[2]");
   await passwordField.fill("Vanraj8169");
 
-  const submitButton = await page.locator("(//button[@class='btn btn-primary'])[3]");
+  const submitButton = await page.locator(
+    "(//button[@class='btn btn-primary'])[3]"
+  );
   await submitButton.click();
 
-
-  await page.waitForTimeout(2000);  
-
-
+  await page.waitForTimeout(2000);
 });
 
 // Test Case 8: Validating add product to cart page and handling the popup
-test("Validating Add Product to cart page and handling the popup", async ({page}) => {
-  
-
+test("Validating Add Product to cart page and handling the popup", async ({
+  page,
+}) => {
   if (!process.env.HOMEPAGE_URL) {
     throw new Error("HOMEPAGE_URL is not set in the environment variables.");
   }
 
   await page.goto(process.env.HOMEPAGE_URL);
 
-
   const product = page.locator("(//a[@class='hrefch'])[1]").click();
   await page.waitForTimeout(4000);
   page.locator("//a[contains(@class,'btn btn-success')]").click();
   await page.waitForTimeout(2000);
-  page.on("dialog",async (alert) =>{
+  page.on("dialog", async (alert) => {
     const text = alert.message;
     console.log(text);
     await alert.accept();
-  })
-
-
+  });
 });
