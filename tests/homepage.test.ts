@@ -166,12 +166,6 @@ test("Testing Signup Page", async () => {
   await expect(signUpButton).toBeVisible();
   await signUpButton.click();
 
-  // const successMessage = page.locator("//div[contains(text(),'Account created successfully')]");
-  // await expect(successMessage).toBeVisible();
-
-  // const userDashboard = page.locator("//span[contains(text(),'Vanraj8169')]");
-  // await expect(userDashboard).toBeVisible();
-
   await browser.close();
 });
 
